@@ -14,7 +14,7 @@ ls vosk-model-small-fr-0.22 && echo "✅ Modèle OK" || echo "❌ Téléchargez 
 ### 2. Lancer la session
 
 ```bash
-make run-session
+make run
 ```
 
 ### 3. Utiliser la session

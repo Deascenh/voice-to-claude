@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Dictez à Claude Code comme si vous parliez à un collègue**
+**Parlez à Claude Code comme à un collègue**
 
 *100% offline • 100% gratuit • 100% français*
 
@@ -13,7 +13,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-[Quick Start](#-quick-start-2-minutes) • [Démo](#-démo) • [Modes](#-4-modes-dutilisation) • [Docs](#-documentation)
+[Quick Start](#-quick-start-2-minutes) • [Démo](#-démo) • [Installation](#-installation) • [Docs](#-documentation)
 
 <br>
 
@@ -35,44 +35,53 @@
 
 ## 🎯 En deux mots
 
-Travaillez avec Claude Code **à la voix**, sans jamais lâcher votre café ☕
+Conversez avec Claude Code **à la voix**, dans un terminal dédié, sans jamais lâcher votre café ☕
 
-- 🎙️ **Session continue** - Une vraie conversation, pas du copier-coller
-- 🔒 **Offline** - Votre voix reste sur votre machine
-- ⚡ **Temps réel** - Vos mots s'affichent instantanément
-- 🇫🇷 **Français** - Reconnaissance vocale optimisée
+- 💬 **Conversation naturelle** - Parlez, Claude répond, vous répondez... comme un binôme
+- 🔒 **100% offline** - Votre voix reste sur votre machine, seul le texte va à Claude
+- 🇫🇷 **Français natif** - Reconnaissance vocale optimisée pour le français
+- ⌨️ **Clavier actif** - Répondez aux questions interactives de Claude au clavier
+- 🎙️ **Toujours à l'écoute** - Parlez naturellement, pas besoin de raccourcis clavier
 
-<details>
-<summary><b>🎬 Voir une démo rapide (30 secondes)</b></summary>
+---
+
+## 🎬 Démo rapide
 
 ```bash
-$ make run-session
+$ make run
+
+╔════════════════════════════════════════════════════════╗
+║         Voice to Claude - Conversation vocale          ║
+╚════════════════════════════════════════════════════════╝
+
+🚀 Lancement de Claude Code...
+✅ Claude Code démarré
 
 🎤 Reconnaissance vocale activée
-   Dites "stop" pour envoyer
-   Dites "terminé" pour quitter
+   Dites 'stop' pour envoyer votre message à Claude
+   Dites 'terminé' pour terminer la session
 
-💭 lis le fichier main point py
-📝 lis le fichier main.py
+⌨️  Clavier actif pour répondre aux questions de Claude
 
-💭 et explique ce qu'il fait stop
-📝 et explique ce qu'il fait
+💭 bonjour claude
+💭 comment vas-tu stop
 
-📤 Envoi à Claude...
-────────────────────────────────────
+📤 Envoi à Claude: bonjour claude comment vas-tu
+────────────────────────────────────────────────────────
 
-🤖 Claude: [Analyse et explique le fichier]
+🤖 Bonjour ! Je vais très bien, merci. Comment puis-je vous aider
+   avec votre code aujourd'hui ?
 
-💭 maintenant ajoute des commentaires stop
-📤 Envoi à Claude...
+💭 crée moi une fonction de tri rapide en python stop
 
-🤖 Claude: [Ajoute les commentaires]
+📤 Envoi à Claude: crée moi une fonction de tri rapide en python
+────────────────────────────────────────────────────────
+
+🤖 [Claude crée la fonction...]
 
 💭 terminé
 👋 Session terminée
 ```
-
-</details>
 
 ---
 
@@ -83,166 +92,47 @@ $ make run-session
 git clone https://github.com/Deascenh/voice-to-claude.git
 cd voice-to-claude
 
-# 2. Install (auto-détecte macOS/Linux)
+# 2. Installation automatique (détecte macOS/Linux)
 make install-system
 
-# 3. Go!
-make run-session
+# 3. Lancement !
+make run
 ```
 
-**C'est parti !** Parlez, dites **"stop"** pour envoyer, **"terminé"** pour quitter.
+**Vous êtes prêt !**
+- 🗣️ Parlez naturellement
+- ⏸️ Dites **"stop"** pour envoyer votre message
+- 🛑 Dites **"terminé"** pour quitter
+- ⌨️ Le clavier reste actif si Claude vous pose des questions
 
-> 💡 **Astuce** : Testez avec `make verify` si vous avez un doute
+> 💡 **Astuce** : Testez votre installation avec `make verify`
 
 ---
 
-## 🎨 4 modes d'utilisation
+## 💬 Comment l'utiliser
 
-<table>
-<tr>
-<td width="50%">
-
-### 🚀 Session Interactive
-**La conversation ultime**
+### Lancement
 
 ```bash
-make run-session
+make run          # Lance dans un terminal détaché (recommandé)
+make run-detached # Alias de make run
+make run-direct   # Lance dans le terminal courant
 ```
 
-✨ Micro toujours actif
-✨ Conversation fluide
-✨ Mots magiques : "stop" / "terminé"
+### Workflow typique
 
-*Parfait pour : brainstorming, refactoring, sessions longues*
+1. **Lancez** l'application avec `make run`
+2. **Parlez** naturellement pour composer votre message
+3. **Dites "stop"** pour envoyer le message à Claude
+4. **Claude répond** et traite votre demande
+5. **Continuez** la conversation ou dites **"terminé"** pour quitter
 
-</td>
-<td width="50%">
+### Astuces
 
-### ⚡ Temps Réel
-**Simple et direct**
-
-```bash
-make run-realtime
-```
-
-✨ Injection directe dans le terminal
-✨ Dites "stop" pour terminer
-✨ Pas de config
-
-*Parfait pour : prompts rapides, dictée simple*
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### 🎮 Daemon (Push-to-Talk)
-**Contrôle total**
-
-```bash
-make run-daemon
-```
-
-✨ **Ctrl+Space** pour dicter
-✨ Background mode
-✨ Multitâche friendly
-
-*Parfait pour : dictées fréquentes, workflow fluide*
-
-</td>
-<td width="50%">
-
-### 📋 Copier-Coller
-**Sécurité d'abord**
-
-```bash
-make run-clipboard
-```
-
-✨ Vérification avant envoi
-✨ Dites "envoyer" pour valider
-✨ Presse-papiers auto
-
-*Parfait pour : commandes critiques, révision*
-
-</td>
-</tr>
-</table>
-
-<details>
-<summary><b>📊 Comparaison détaillée des modes</b></summary>
-
-| Mode | Session continue | Mots magiques | Complexité | Idéal pour |
-|------|------------------|---------------|------------|------------|
-| **Session Interactive** | ✅ | stop/terminé | ⭐⭐⭐⭐ | Conversations longues |
-| **Temps Réel** | ❌ | stop | ⭐⭐⭐⭐⭐ | Usage quotidien |
-| **Daemon** | ❌ | Ctrl+Space | ⭐⭐⭐ | Multitâche |
-| **Copier-Coller** | ❌ | envoyer | ⭐⭐⭐⭐ | Révision |
-
-</details>
-
----
-
-## 🛠️ Pour les devs
-
-> 💡 **Contributeurs** : Consultez [.github/CI_CD.md](.github/CI_CD.md) pour la doc complète des workflows CI/CD
-
-<details open>
-<summary><b>🧪 Tests & Qualité</b></summary>
-
-```bash
-make test         # Tests avec coverage
-make lint         # Code quality
-make format       # Auto-format (black)
-make quality      # All checks
-make ci           # Simuler CI local
-```
-
-- ✅ **Pytest** avec fixtures
-- ✅ **Coverage** 80%+
-- ✅ **CI/CD** multi-OS (Ubuntu/macOS) × Python 3.9-3.12
-- ✅ **Pre-commit hooks** (black, flake8, mypy, bandit)
-
-</details>
-
-<details>
-<summary><b>🔀 GitFlow Workflow</b></summary>
-
-```bash
-# Nouvelle feature
-git checkout develop
-git checkout -b feature/ma-super-idee
-
-# Coder, tester
-make test && make lint
-
-# PR vers develop
-git push origin feature/ma-super-idee
-```
-
-**Branches :** `main` (prod) • `develop` (dev) • `feature/*` • `hotfix/*`
-
-[Guide complet →](GITFLOW.md)
-
-</details>
-
-<details>
-<summary><b>⚙️ Configuration avancée</b></summary>
-
-**Changer les mots magiques :**
-```python
-# src/voice_to_claude/__init__.py
-DEFAULT_SEND_WORD = "envoyer"  # au lieu de "stop"
-DEFAULT_QUIT_WORD = "stop"     # au lieu de "terminé"
-```
-
-**Modèle Vosk complet (~1.5GB) :**
-```bash
-wget https://alphacephei.com/vosk/models/vosk-model-fr-0.22.zip
-unzip vosk-model-fr-0.22.zip
-```
-
-</details>
+- ✅ **Articulez "stop"** comme "slou-bi" si pas détecté
+- ✅ **Articulez "terminé"** comme "tèr-mi-né"
+- ✅ **Petite pause** avant et après les mots magiques
+- ✅ **Clavier actif** pour les réponses aux questions de Claude (Oui/Non, choix multiples, etc.)
 
 ---
 
@@ -250,145 +140,175 @@ unzip vosk-model-fr-0.22.zip
 
 ### Prérequis
 
-<table>
-<tr>
-<td>🐍 <b>Python 3.9+</b></td>
-<td>🍎 <b>macOS 10.14+</b> ou 🐧 <b>Linux</b></td>
-</tr>
-<tr>
-<td>🎤 <b>Microphone</b></td>
-<td>🤖 <b><a href="https://github.com/anthropics/claude-code">Claude Code</a></b></td>
-</tr>
-</table>
+- 🐍 **Python 3.9+**
+- 🍎 **macOS 10.14+** ou 🐧 **Linux**
+- 🎤 **Microphone** fonctionnel
+- 🤖 **[Claude Code](https://github.com/anthropics/claude-code)** installé
 
-### Auto (recommandé)
+### Installation automatique (recommandée)
 
 ```bash
 make install-system
 ```
 
-Le Makefile détecte votre OS et installe tout automatiquement.
+Le script détecte automatiquement votre système d'exploitation et installe :
+- Les dépendances système (PortAudio, etc.)
+- Les packages Python
+- Le modèle Vosk français
 
-### Manuel
+### Installation manuelle
 
 <details>
-<summary>Voir les étapes manuelles</summary>
+<summary>Cliquez pour voir les étapes manuelles</summary>
 
+**macOS**
 ```bash
-# macOS
 brew install portaudio
 pip install -r requirements.txt
 
-# Linux (Ubuntu/Debian)
+# Télécharger le modèle Vosk
+wget https://alphacephei.com/vosk/models/vosk-model-small-fr-0.22.zip
+unzip vosk-model-small-fr-0.22.zip
+```
+
+**Linux (Ubuntu/Debian)**
+```bash
+sudo apt-get update
 sudo apt-get install portaudio19-dev python3-pyaudio
 pip install -r requirements.txt
 
-# Modèle Vosk
+# Télécharger le modèle Vosk
 wget https://alphacephei.com/vosk/models/vosk-model-small-fr-0.22.zip
 unzip vosk-model-small-fr-0.22.zip
 ```
 
 </details>
 
----
-
-## 📚 Documentation
-
-<table>
-<tr>
-<td>📖 <a href="docs/QUICK_START_SESSION.md">Quick Start détaillé</a></td>
-<td>Guide pas-à-pas pour débuter</td>
-</tr>
-<tr>
-<td>🎯 <a href="docs/SESSION_MODE.md">Modes en détail</a></td>
-<td>Documentation technique complète</td>
-</tr>
-<tr>
-<td>🔀 <a href="GITFLOW.md">GitFlow</a></td>
-<td>Workflow de contribution</td>
-</tr>
-<tr>
-<td>🤝 <a href="docs/CONTRIBUTING.md">Contributing</a></td>
-<td>Comment contribuer</td>
-</tr>
-<tr>
-<td>⚙️ <a href=".github/CI_CD.md">CI/CD & GitHub</a></td>
-<td>Configuration des workflows</td>
-</tr>
-<tr>
-<td>📝 <a href="CHANGELOG.md">Changelog</a></td>
-<td>Historique des versions</td>
-</tr>
-<tr>
-<td>🚀 <a href="QUICKSTART_COLLAB.md">Publier sur GitHub</a></td>
-<td>Guide rapide (5 min)</td>
-</tr>
-</table>
-
----
-
-## 🎁 Makefile magique
+### Vérification
 
 ```bash
-make help          # 📖 Toutes les commandes
-make test          # 🧪 Tests
-make lint          # ✨ Qualité
-make format        # 🎨 Format
-make clean         # 🧹 Nettoyage
-make quality       # ⭐ Tous les checks
-make ci            # 🤖 CI local
+make verify
 ```
 
-20+ commandes pour tout automatiser. `make help` pour la liste complète.
+---
+
+## ⚙️ Configuration
+
+### Changer les mots magiques
+
+Éditez `src/voice_to_claude/__init__.py` :
+
+```python
+DEFAULT_SEND_WORD = "envoyer"  # au lieu de "stop"
+DEFAULT_QUIT_WORD = "stop"     # au lieu de "terminé"
+```
+
+### Modèle Vosk complet (~1.5GB)
+
+Pour une meilleure précision :
+
+```bash
+wget https://alphacephei.com/vosk/models/vosk-model-fr-0.22.zip
+unzip vosk-model-fr-0.22.zip
+```
+
+Puis mettez à jour `MODEL_PATH` dans `src/voice_to_claude/voice_session.py`.
+
+---
+
+## 🛠️ Développement
+
+### Setup environnement
+
+```bash
+# Créer l'environnement virtuel
+make setup-venv
+
+# Installer les dépendances de développement
+make install-dev
+```
+
+### Tests & Qualité
+
+```bash
+make test         # Tests avec coverage
+make lint         # Vérification qualité (flake8, mypy)
+make format       # Formatage automatique (black)
+make quality      # Tous les checks
+make ci           # Simuler le CI en local
+```
+
+### Standards de qualité
+
+- ✅ **Pytest** avec fixtures et coverage 80%+
+- ✅ **Black** pour le formatage
+- ✅ **Flake8** pour le linting
+- ✅ **Mypy** pour le type checking
+- ✅ **CI/CD** multi-OS (Ubuntu/macOS) × Python 3.9-3.12
+
+### Makefile complet
+
+```bash
+make help  # Voir toutes les commandes disponibles
+```
+
+**Commandes principales :**
+- `make run` - Lancer l'application
+- `make test` - Tests
+- `make format` - Formatter le code
+- `make lint` - Vérifier la qualité
+- `make clean` - Nettoyer les fichiers temporaires
 
 ---
 
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! Voici comment :
+Les contributions sont les bienvenues !
 
 ```bash
 # 1. Fork & clone
 git clone https://github.com/Deascenh/voice-to-claude.git
 cd voice-to-claude
 
-# 2. Setup environnement (détection auto du venv!)
+# 2. Setup environnement
 make setup-venv
 make install-dev
 
 # 3. Branche feature
-git checkout -b feature/awesome-stuff
+git checkout -b feature/ma-super-idee
 
-# 4. Code + test
+# 4. Développer + tester
 make quality
 
-# 5. PR!
+# 5. Pull Request !
 ```
 
-**Standards :**
+**Critères pour une PR acceptée :**
 - ✅ Tests passent (`make test`)
 - ✅ Code formaté (`make format`)
 - ✅ Lint OK (`make lint`)
-- ✅ Coverage maintenu
-
-**Guides développeurs :**
-- [Démarrage rapide (débutants Python) →](docs/QUICKSTART_DEV.md)
-- [Guide complet de contribution →](docs/CONTRIBUTING.md)
+- ✅ Coverage maintenu (80%+)
 
 ---
 
-## 🐛 Problèmes courants
+## 🐛 Dépannage
 
 <details>
-<summary><b>Le micro ne fonctionne pas</b></summary>
+<summary><b>Le microphone ne fonctionne pas</b></summary>
 
+**Linux**
 ```bash
-# Tester
-arecord -d 3 test.wav && aplay test.wav  # Linux
-# Sur macOS : Préférences > Sécurité > Microphone
+# Tester le micro
+arecord -d 3 test.wav && aplay test.wav
 
-# Vérifier
+# Vérifier les permissions
 make verify
+```
+
+**macOS**
+```
+Préférences Système > Sécurité et confidentialité > Microphone
+→ Autoriser Terminal ou votre émulateur
 ```
 
 </details>
@@ -397,21 +317,22 @@ make verify
 <summary><b>Claude ne se lance pas</b></summary>
 
 ```bash
-# Vérifier installation
+# Vérifier l'installation
 claude --version
 
-# Réinstaller si besoin
+# Si non installé, suivre :
 # https://github.com/anthropics/claude-code
 ```
 
 </details>
 
 <details>
-<summary><b>Mots magiques non détectés</b></summary>
+<summary><b>"stop" ou "terminé" non détecté</b></summary>
 
-- Prononcez **"slou-bi"** (articulez bien)
-- Prononcez **"wake-u-teu"** (séparez les syllabes)
-- Ajoutez une petite pause avant/après
+- Articulez clairement : **"slou-bi"** ou **"wake-u-teu"**
+- Ajoutez une petite pause avant et après
+- Parlez à volume normal (pas besoin de crier)
+- Vérifiez que le modèle Vosk est bien téléchargé
 
 </details>
 
@@ -422,10 +343,10 @@ claude --version
 # Installer les dépendances dev
 make install-dev
 
-# Vérifier
+# Vérifier l'installation
 make verify
 
-# Relancer
+# Relancer les tests
 make test
 ```
 
@@ -433,28 +354,49 @@ make test
 
 ---
 
-## 🏗️ Structure du projet
+## 📚 Documentation
 
-```
-voice-to-claude/
-├── 🎯 src/voice_to_claude/    # Code source
-├── 🧪 tests/                  # Tests (pytest)
-├── 📚 docs/                   # Documentation
-├── 🛠️ scripts/                # Installation
-├── ⚙️ .github/                # CI/CD
-├── 📦 pyproject.toml          # Config Python
-├── 🎨 Makefile                # Commandes
-└── 📖 README.md               # Vous êtes ici!
-```
+- 📖 [Guide de contribution](docs/CONTRIBUTING.md)
+- 🔀 [Workflow GitFlow](GITFLOW.md)
+- ⚙️ [CI/CD & GitHub](.github/CI_CD.md)
+- 📝 [Changelog](CHANGELOG.md)
 
 ---
 
-## 💬 Support & Communauté
+## 🏗️ Architecture
 
-- 🐛 **Bug ?** → [Ouvrir une issue](https://github.com/Deascenh/voice-to-claude/issues/new?template=bug_report.md)
-- 💡 **Idée ?** → [Feature request](https://github.com/Deascenh/voice-to-claude/issues/new?template=feature_request.md)
+```
+voice-to-claude/
+├── src/voice_to_claude/
+│   ├── __init__.py          # Configuration globale
+│   └── voice_session.py     # Application principale
+├── tests/                   # Tests pytest
+├── scripts/
+│   ├── launch_detached.sh   # Lanceur terminal détaché
+│   ├── setup.sh            # Installation système
+│   └── verify.sh           # Vérification install
+├── docs/                    # Documentation
+├── .github/                 # CI/CD workflows
+├── Makefile                # Commandes automatisées
+├── pyproject.toml          # Configuration Python
+└── requirements.txt        # Dépendances
+
+```
+
+**Architecture technique :**
+- **PTY (Pseudo-Terminal)** pour interagir avec Claude Code
+- **Vosk** pour la reconnaissance vocale offline
+- **PyAudio** pour la capture audio
+- **Threading** pour la gestion simultanée voix/clavier/sortie
+
+---
+
+## 💬 Support
+
+- 🐛 **Bug ?** → [Ouvrir une issue](https://github.com/Deascenh/voice-to-claude/issues/new)
+- 💡 **Idée ?** → [Feature request](https://github.com/Deascenh/voice-to-claude/issues/new)
 - 💬 **Question ?** → [Discussions](https://github.com/Deascenh/voice-to-claude/discussions)
-- ⭐ **Vous aimez ?** → Star le projet!
+- ⭐ **Vous aimez ?** → Star le projet !
 
 ---
 
@@ -464,7 +406,7 @@ MIT License - Faites-en ce que vous voulez !
 
 ---
 
-## 🙏 Merci à
+## 🙏 Remerciements
 
 - [Vosk](https://alphacephei.com/vosk/) - Reconnaissance vocale offline
 - [Claude Code](https://github.com/anthropics/claude-code) - CLI d'Anthropic
@@ -479,6 +421,6 @@ MIT License - Faites-en ce que vous voulez !
 
 [⭐ Star](https://github.com/Deascenh/voice-to-claude) • [🔀 Fork](https://github.com/Deascenh/voice-to-claude/fork) • [🐛 Issues](https://github.com/Deascenh/voice-to-claude/issues)
 
-<sub>Voice to Claude v1.0.0 • Développeurs heureux depuis 2026</sub>
+<sub>Voice to Claude v1.0.0 • Parlez, codez, répétez.</sub>
 
 </div>

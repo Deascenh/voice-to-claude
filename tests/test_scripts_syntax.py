@@ -20,8 +20,8 @@ def test_python_syntax(py_file):
         pytest.fail(f"Syntax error in {py_file}: {e}")
 
 
-def test_all_scripts_are_executable():
-    """Test that all main scripts have execute permissions (on Unix)."""
+def test_main_script_is_executable():
+    """Test that the main script has execute permissions (on Unix)."""
     import os
     import platform
 
@@ -29,14 +29,7 @@ def test_all_scripts_are_executable():
         pytest.skip("Skipping execute permission check on Windows")
 
     src_path = Path(__file__).parent.parent / "src" / "voice_to_claude"
-    scripts = [
-        "voice_session.py",
-        "voice_realtime.py",
-        "voice_daemon.py",
-        "voice_to_claude.py",
-    ]
+    script_path = src_path / "voice_session.py"
 
-    for script in scripts:
-        script_path = src_path / script
-        if script_path.exists():
-            assert os.access(script_path, os.X_OK), f"{script} is not executable"
+    if script_path.exists():
+        assert os.access(script_path, os.X_OK), "voice_session.py is not executable"

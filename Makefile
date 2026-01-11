@@ -94,17 +94,14 @@ clean: ## Nettoyer les fichiers temporaires
 verify: ## Vérifier que le système est prêt
 	./scripts/verify.sh
 
-run-session: ## Lancer le mode session interactive
-	./scripts/start_session.sh
+run: ## Lancer Voice to Claude (alias pour run-detached)
+	./scripts/launch_detached.sh
 
-run-realtime: ## Lancer le mode temps réel
-	$(PYTHON) src/voice_to_claude/voice_realtime.py
+run-detached: ## Lancer Voice to Claude dans un terminal détaché
+	./scripts/launch_detached.sh
 
-run-daemon: ## Lancer le mode daemon
-	$(PYTHON) src/voice_to_claude/voice_daemon.py
-
-run-clipboard: ## Lancer le mode copier-coller
-	$(PYTHON) src/voice_to_claude/voice_to_claude.py
+run-direct: ## Lancer Voice to Claude dans le terminal courant
+	$(PYTHON) src/voice_to_claude/voice_session.py
 
 pre-commit: ## Installer les hooks pre-commit
 	$(PIP) install pre-commit
@@ -128,14 +125,8 @@ ci: install-dev quality ## Simuler le CI en local
 all: clean install-dev quality ## Tout installer et vérifier
 
 # Raccourcis
+r: run ## Alias pour run
 t: test ## Alias pour test
 f: format ## Alias pour format
 l: lint ## Alias pour lint
 c: clean ## Alias pour clean
-
-# Docker (pour le futur)
-docker-build: ## Construire l'image Docker (à venir)
-	@echo "Docker support coming soon!"
-
-docker-run: ## Lancer dans Docker (à venir)
-	@echo "Docker support coming soon!"

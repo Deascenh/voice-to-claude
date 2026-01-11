@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "voice-to-claude"
 version = "1.0.0"
-description = "🎤 Dictée vocale en français pour Claude Code - 100% offline"
+description = "🎤 Conversation vocale avec Claude Code - 100% offline et en français"
 readme = "README.md"
 authors = [
     {name = "Voice to Claude Contributors"}
@@ -30,7 +30,6 @@ requires-python = ">=3.9"
 dependencies = [
     "vosk>=0.3.44",
     "pyaudio>=0.2.13",
-    "pynput>=1.7.6",
 ]
 
 [project.optional-dependencies]
@@ -51,10 +50,7 @@ Repository = "https://github.com/Deascenh/voice-to-claude"
 Issues = "https://github.com/Deascenh/voice-to-claude/issues"
 
 [project.scripts]
-voice-session = "voice_to_claude.voice_session:main"
-voice-realtime = "voice_to_claude.voice_realtime:main"
-voice-daemon = "voice_to_claude.voice_daemon:main"
-voice-clipboard = "voice_to_claude.voice_to_claude:main"
+voice-to-claude = "voice_to_claude.voice_session:main"
 
 [tool.black]
 line-length = 100

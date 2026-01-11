@@ -9,17 +9,20 @@ Commandes vocales:
 
 Le clavier reste actif pour répondre aux questions de Claude.
 """
+from typing import Optional, List
 import vosk
 import pyaudio
 import json
 import sys
 import os
-import subprocess
+import pty
+import select
 import threading
 import queue
 import time
-import select
 import signal
+import termios
+import tty
 
 # Configuration
 MODEL_PATH = "vosk-model-small-fr-0.22"
@@ -29,35 +32,35 @@ QUIT_WORD = "terminé"  # Mot pour quitter
 
 
 class ClaudeSession:
-    def __init__(self):
-        self.claude_process = None
-        self.voice_buffer = []
-        self.running = False
-        self.voice_lock = threading.Lock()
+    def __init__(self) -> None:
+        self.claude_master_fd: Optional[int] = None
+        self.claude_pid: Optional[int] = None
+        self.voice_buffer: List[str] = []
+        self.running: bool = False
+        self.voice_lock: threading.Lock = threading.Lock()
 
         # Queues pour la communication
         self.voice_queue: queue.Queue[str] = queue.Queue()
 
         # Threads
-        self.voice_thread = None
-        self.stdout_thread = None
+        self.voice_thread: Optional[threading.Thread] = None
+        self.pty_reader_thread: Optional[threading.Thread] = None
 
-    def start_claude(self):
-        """Lance le processus Claude Code"""
+    def start_claude(self) -> bool:
+        """Lance le processus Claude Code avec un PTY"""
         print("🚀 Lancement de Claude Code...")
         try:
-            # Lancer claude en mode interactif
-            self.claude_process = subprocess.Popen(
-                ["claude"],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                bufsize=0,  # Pas de buffering
-                universal_newlines=True,
-                text=True,
-            )
-            print("✅ Claude Code démarré\n")
-            return True
+            # Créer un pseudo-terminal
+            self.claude_pid, self.claude_master_fd = pty.fork()
+
+            if self.claude_pid == 0:
+                # Processus enfant : exécuter claude
+                os.execvp("claude", ["claude"])
+            else:
+                # Processus parent
+                print("✅ Claude Code démarré\n")
+                return True
+
         except FileNotFoundError:
             print("❌ Erreur: 'claude' non trouvé. Installez Claude Code d'abord.")
             return False
@@ -65,7 +68,7 @@ class ClaudeSession:
             print(f"❌ Erreur au lancement de Claude: {e}")
             return False
 
-    def start_voice_recognition(self):
+    def start_voice_recognition(self) -> bool:
         """Démarre la reconnaissance vocale en arrière-plan"""
         # Vérifier l'existence du modèle
         if not os.path.exists(MODEL_PATH):
@@ -76,7 +79,7 @@ class ClaudeSession:
         self.voice_thread.start()
         return True
 
-    def _voice_recognition_loop(self):
+    def _voice_recognition_loop(self) -> None:
         """Boucle de reconnaissance vocale (thread séparé)"""
         try:
             # Initialiser Vosk
@@ -166,7 +169,7 @@ class ClaudeSession:
             print(f"❌ Erreur critique reconnaissance vocale: {e}")
             self.running = False
 
-    def _send_buffer_to_claude(self):
+    def _send_buffer_to_claude(self) -> None:
         """Envoie le buffer vocal à Claude"""
         with self.voice_lock:
             if not self.voice_buffer:
@@ -184,65 +187,101 @@ class ClaudeSession:
         print("─" * 60)
 
         try:
-            # Envoyer à Claude via stdin
-            if self.claude_process and self.claude_process.stdin:
-                self.claude_process.stdin.write(full_text + "\n")
-                self.claude_process.stdin.flush()
-            else:
-                print("❌ Erreur: processus Claude non démarré")
+            if self.claude_master_fd is None:
+                print("❌ Erreur: Connexion à Claude perdue")
+                return
+
+            # Envoyer à Claude via le PTY - simuler la frappe caractère par caractère
+            for char in full_text:
+                os.write(self.claude_master_fd, char.encode("utf-8"))
+                time.sleep(0.01)  # Petit délai pour simuler la frappe humaine
+
+            # Envoyer Enter (carriage return + line feed pour compatibilité maximale)
+            os.write(self.claude_master_fd, b"\r")
+            time.sleep(0.05)
+            os.write(self.claude_master_fd, b"\n")
+
+            # Forcer le flush du buffer PTY
+            try:
+                termios.tcdrain(self.claude_master_fd)
+            except Exception:
+                pass  # Ignorer les erreurs de tcdrain (non critique)
+
+            # Petit délai pour laisser Claude traiter la commande
+            time.sleep(0.2)
+
+        except OSError as e:
+            print(f"❌ Erreur d'envoi: {e}")
         except Exception as e:
             print(f"❌ Erreur lors de l'envoi: {e}")
 
-    def start_stdout_reader(self):
-        """Démarre le thread de lecture de stdout de Claude"""
-        self.stdout_thread = threading.Thread(target=self._read_claude_output, daemon=True)
-        self.stdout_thread.start()
+    def start_pty_reader(self) -> None:
+        """Démarre le thread de lecture du PTY de Claude"""
+        self.pty_reader_thread = threading.Thread(target=self._read_pty_output, daemon=True)
+        self.pty_reader_thread.start()
 
-    def _read_claude_output(self):
-        """Lit et affiche la sortie de Claude (thread séparé)"""
+    def _read_pty_output(self) -> None:
+        """Lit et affiche la sortie du PTY de Claude (thread séparé)"""
+        if self.claude_master_fd is None:
+            return
+
         try:
-            while self.running and self.claude_process:
-                # Lire ligne par ligne
-                line = self.claude_process.stdout.readline()
-                if not line:
-                    if self.claude_process.poll() is not None:
-                        # Claude s'est terminé
-                        print("\n⚠️  Claude Code s'est arrêté")
+            while self.running:
+                # Utiliser select pour vérifier si des données sont disponibles
+                r, _, _ = select.select([self.claude_master_fd], [], [], 0.1)
+
+                if r:
+                    try:
+                        data = os.read(self.claude_master_fd, 1024)
+                        if data:
+                            output = data.decode("utf-8", errors="replace")
+                            print(output, end="", flush=True)
+                        else:
+                            # EOF - Claude s'est terminé
+                            print("\n⚠️  Claude Code s'est arrêté")
+                            self.running = False
+                            break
+                    except OSError as e:
+                        print(f"\n⚠️  Erreur de lecture: {e}")
                         self.running = False
                         break
-                    continue
-
-                # Afficher la sortie de Claude
-                print(line, end="", flush=True)
 
         except Exception as e:
             if self.running:
-                print(f"\n⚠️  Erreur lecture stdout: {e}")
+                print(f"\n⚠️  Erreur critique: {e}")
 
-    def handle_keyboard_input(self):
+    def handle_keyboard_input(self) -> None:
         """Gère l'input clavier pour répondre aux questions de Claude"""
         print("⌨️  Clavier actif pour répondre aux questions de Claude\n")
 
+        # Sauvegarder les paramètres du terminal
+        old_settings = termios.tcgetattr(sys.stdin)
+
         try:
+            # Mettre le terminal en mode raw pour capturer chaque caractère
+            tty.setcbreak(sys.stdin.fileno())
+
             while self.running:
                 # Utiliser select pour vérifier si stdin a des données
                 # Timeout de 0.5s pour vérifier régulièrement self.running
                 if sys.stdin in select.select([sys.stdin], [], [], 0.5)[0]:
-                    line = sys.stdin.readline()
-                    if line:
-                        # Envoyer au processus Claude
+                    char = sys.stdin.read(1)
+                    if char:
+                        # Envoyer au PTY de Claude
                         try:
-                            if self.claude_process and self.claude_process.stdin:
-                                self.claude_process.stdin.write(line)
-                                self.claude_process.stdin.flush()
+                            if self.claude_master_fd is not None:
+                                os.write(self.claude_master_fd, char.encode("utf-8"))
                         except Exception as e:
                             print(f"⚠️  Erreur envoi clavier: {e}")
 
         except KeyboardInterrupt:
             print("\n\n⚠️  Interruption clavier détectée")
             self.running = False
+        finally:
+            # Restaurer les paramètres du terminal
+            termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
 
-    def run(self):
+    def run(self) -> None:
         """Lance la session interactive"""
         print("╔════════════════════════════════════════════════════════╗")
         print("║  Voice to Claude - Session Interactive Continue       ║")
@@ -261,10 +300,10 @@ class ClaudeSession:
             return
 
         # Lancer le lecteur de sortie Claude
-        self.start_stdout_reader()
+        self.start_pty_reader()
 
         # Petite pause pour laisser les threads démarrer
-        time.sleep(1)
+        time.sleep(2)
 
         try:
             # Boucle principale : gestion de l'input clavier
@@ -272,31 +311,52 @@ class ClaudeSession:
         except KeyboardInterrupt:
             print("\n\n👋 Interruption (Ctrl+C)")
         finally:
+            # Toujours cleanup Claude et le micro
             self.cleanup()
 
-    def cleanup(self):
+            # Attendre que l'utilisateur ferme le terminal manuellement
+            print("\n" + "=" * 60)
+            print("   Session terminée. Fermez ce terminal manuellement.")
+            print("=" * 60)
+            input("\nAppuyez sur Entrée pour fermer...")
+
+    def cleanup(self) -> None:
         """Nettoyage et fermeture propre"""
         print("\n\n🧹 Nettoyage en cours...")
         self.running = False
 
+        # Attendre un peu que les threads se terminent proprement
+        time.sleep(0.5)
+
         # Terminer le processus Claude
-        if self.claude_process:
+        if self.claude_pid:
             try:
-                self.claude_process.terminate()
-                self.claude_process.wait(timeout=3)
+                os.kill(self.claude_pid, signal.SIGTERM)
+                os.waitpid(self.claude_pid, 0)
             except Exception:
-                self.claude_process.kill()
+                try:
+                    os.kill(self.claude_pid, signal.SIGKILL)
+                except Exception:
+                    pass
+
+        # Fermer le PTY après avoir terminé le processus
+        if self.claude_master_fd is not None:
+            try:
+                os.close(self.claude_master_fd)
+            except Exception:
+                pass
 
         print("✅ Session terminée\n")
 
 
-def signal_handler(sig, frame):
+def signal_handler(sig: int, frame: object) -> None:
     """Gestion de Ctrl+C"""
     print("\n\n👋 Signal d'interruption reçu")
     sys.exit(0)
 
 
-def main():
+def main() -> None:
+    """Point d'entrée principal de l'application"""
     # Gestion de Ctrl+C
     signal.signal(signal.SIGINT, signal_handler)
 

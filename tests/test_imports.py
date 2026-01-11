@@ -20,12 +20,9 @@ def test_import_constants():
 
 
 def test_scripts_exist():
-    """Test that all main scripts exist."""
+    """Test that the main script exists."""
     from pathlib import Path
 
     src_path = Path(__file__).parent.parent / "src" / "voice_to_claude"
 
     assert (src_path / "voice_session.py").exists()
-    assert (src_path / "voice_realtime.py").exists()
-    assert (src_path / "voice_daemon.py").exists()
-    assert (src_path / "voice_to_claude.py").exists()

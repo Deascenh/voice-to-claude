@@ -1,8 +1,11 @@
 """
-Voice to Claude - Dictée vocale pour Claude Code
+Voice to Claude - Conversation vocale avec Claude Code
 
-Un système de reconnaissance vocale offline en français pour interagir
-avec Claude Code de manière fluide et naturelle.
+Une application de reconnaissance vocale offline en français permettant
+d'avoir des conversations fluides et naturelles avec Claude Code dans un
+terminal dédié.
+
+Dites 'stop' pour envoyer votre message, 'terminé' pour quitter.
 """
 
 __version__ = "1.0.0"
