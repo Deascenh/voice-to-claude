@@ -8,8 +8,8 @@
 
 <br>
 
-[![CI](https://github.com/VOTRE-USERNAME/voice-to-claude/workflows/CI/badge.svg)](https://github.com/VOTRE-USERNAME/voice-to-claude/actions)
-[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![CI](https://github.com/Deascenh/voice-to-claude/workflows/CI/badge.svg)](https://github.com/Deascenh/voice-to-claude/actions)
+[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
@@ -46,7 +46,7 @@ Travaillez avec Claude Code **à la voix**, sans jamais lâcher votre café ☕
 <summary><b>🎬 Voir une démo rapide (30 secondes)</b></summary>
 
 ```bash
-$ ./scripts/start_session.sh
+$ make run-session
 
 🎤 Reconnaissance vocale activée
    Dites "stop" pour envoyer
@@ -80,11 +80,11 @@ $ ./scripts/start_session.sh
 
 ```bash
 # 1. Clone
-git clone https://github.com/VOTRE-USERNAME/voice-to-claude.git
+git clone https://github.com/Deascenh/voice-to-claude.git
 cd voice-to-claude
 
 # 2. Install (auto-détecte macOS/Linux)
-./scripts/setup.sh
+make install-system
 
 # 3. Go!
 make run-session
@@ -200,7 +200,7 @@ make ci           # Simuler CI local
 
 - ✅ **Pytest** avec fixtures
 - ✅ **Coverage** 80%+
-- ✅ **CI/CD** multi-OS (Ubuntu/macOS) × Python 3.8-3.11
+- ✅ **CI/CD** multi-OS (Ubuntu/macOS) × Python 3.9-3.12
 - ✅ **Pre-commit hooks** (black, flake8, mypy, bandit)
 
 </details>
@@ -252,7 +252,7 @@ unzip vosk-model-fr-0.22.zip
 
 <table>
 <tr>
-<td>🐍 <b>Python 3.8+</b></td>
+<td>🐍 <b>Python 3.9+</b></td>
 <td>🍎 <b>macOS 10.14+</b> ou 🐧 <b>Linux</b></td>
 </tr>
 <tr>
@@ -264,10 +264,10 @@ unzip vosk-model-fr-0.22.zip
 ### Auto (recommandé)
 
 ```bash
-./scripts/setup.sh
+make install-system
 ```
 
-Le script détecte votre OS et installe tout automatiquement.
+Le Makefile détecte votre OS et installe tout automatiquement.
 
 ### Manuel
 
@@ -349,7 +349,7 @@ Les contributions sont les bienvenues ! Voici comment :
 
 ```bash
 # 1. Fork & clone
-git clone https://github.com/VOTRE-USERNAME/voice-to-claude.git
+git clone https://github.com/Deascenh/voice-to-claude.git
 cd voice-to-claude
 
 # 2. Setup environnement (détection auto du venv!)
@@ -451,9 +451,9 @@ voice-to-claude/
 
 ## 💬 Support & Communauté
 
-- 🐛 **Bug ?** → [Ouvrir une issue](https://github.com/VOTRE-USERNAME/voice-to-claude/issues/new?template=bug_report.md)
-- 💡 **Idée ?** → [Feature request](https://github.com/VOTRE-USERNAME/voice-to-claude/issues/new?template=feature_request.md)
-- 💬 **Question ?** → [Discussions](https://github.com/VOTRE-USERNAME/voice-to-claude/discussions)
+- 🐛 **Bug ?** → [Ouvrir une issue](https://github.com/Deascenh/voice-to-claude/issues/new?template=bug_report.md)
+- 💡 **Idée ?** → [Feature request](https://github.com/Deascenh/voice-to-claude/issues/new?template=feature_request.md)
+- 💬 **Question ?** → [Discussions](https://github.com/Deascenh/voice-to-claude/discussions)
 - ⭐ **Vous aimez ?** → Star le projet!
 
 ---
@@ -477,7 +477,7 @@ MIT License - Faites-en ce que vous voulez !
 
 **Fait avec ❤️ et beaucoup de ☕**
 
-[⭐ Star](https://github.com/VOTRE-USERNAME/voice-to-claude) • [🔀 Fork](https://github.com/VOTRE-USERNAME/voice-to-claude/fork) • [🐛 Issues](https://github.com/VOTRE-USERNAME/voice-to-claude/issues)
+[⭐ Star](https://github.com/Deascenh/voice-to-claude) • [🔀 Fork](https://github.com/Deascenh/voice-to-claude/fork) • [🐛 Issues](https://github.com/Deascenh/voice-to-claude/issues)
 
 <sub>Voice to Claude v1.0.0 • Développeurs heureux depuis 2026</sub>
 

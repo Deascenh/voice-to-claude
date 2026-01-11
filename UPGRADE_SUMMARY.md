@@ -106,7 +106,7 @@ make coverage
 **Workflows automatiques :**
 
 #### CI (`.github/workflows/ci.yml`)
-- ✅ Tests sur Python 3.8, 3.9, 3.10, 3.11
+- ✅ Tests sur Python 3.9, 3.10, 3.11, 3.12
 - ✅ Tests sur Ubuntu ET macOS
 - ✅ Code quality (black, flake8, mypy, pylint)
 - ✅ Security scan (bandit, safety)
@@ -234,11 +234,11 @@ make run-session   # Lancer mode session
 
 ```bash
 # Clone
-git clone https://github.com/VOTRE-USERNAME/voice-to-claude.git
+git clone https://github.com/Deascenh/voice-to-claude.git
 cd voice-to-claude
 
 # Installation
-./scripts/setup.sh
+make install-system
 
 # Vérification
 make verify
@@ -298,7 +298,7 @@ make ci        # Simuler CI local
 ### 3. Pousser le code
 
 ```bash
-git remote add origin https://github.com/VOTRE-USERNAME/voice-to-claude.git
+git remote add origin https://github.com/<votre-username>/voice-to-claude.git
 git push -u origin main
 git push -u origin develop
 ```
@@ -333,7 +333,7 @@ git push origin v1.0.0
 
 ### 7. Ajouter des badges au README
 
-Remplacez `VOTRE-USERNAME` par votre vrai username GitHub.
+Remplacez `<votre-username>` par votre vrai username GitHub.
 
 ### 8. Partager avec vos collègues
 
@@ -353,15 +353,15 @@ vocalement à Claude Code.
 - GitFlow workflow
 
 🚀 Installation :
-git clone https://github.com/VOTRE-USERNAME/voice-to-claude.git
+git clone https://github.com/Deascenh/voice-to-claude.git
 cd voice-to-claude
-./scripts/setup.sh
+make install-system
 make run-session
 
 Le projet est prêt pour la collaboration !
 N'hésitez pas à contribuer 😊
 
-📖 Doc : https://github.com/VOTRE-USERNAME/voice-to-claude
+📖 Doc : https://github.com/Deascenh/voice-to-claude
 ```
 
 ---

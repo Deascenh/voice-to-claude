@@ -12,7 +12,7 @@ Ce fichier documente toute la configuration GitHub Actions, workflows et templat
 
 **Jobs :**
 
-1. **Test** (Matrix: Ubuntu/macOS × Python 3.8-3.11)
+1. **Test** (Matrix: Ubuntu/macOS × Python 3.9-3.12)
    - Installation des dépendances
    - Exécution des tests pytest
    - Upload coverage vers Codecov
@@ -29,7 +29,7 @@ Ce fichier documente toute la configuration GitHub Actions, workflows et templat
 
 **Badge :**
 ```markdown
-[![CI](https://github.com/VOTRE-USERNAME/voice-to-claude/workflows/CI/badge.svg)](https://github.com/VOTRE-USERNAME/voice-to-claude/actions)
+[![CI](https://github.com/Deascenh/voice-to-claude/workflows/CI/badge.svg)](https://github.com/Deascenh/voice-to-claude/actions)
 ```
 
 ### `workflows/release.yml` - Automated Release
@@ -82,9 +82,7 @@ Templates pour les issues GitHub.
 `CODEOWNERS` définit les propriétaires par défaut pour les reviews.
 
 **Configuration actuelle :**
-- Tout le code : @votre-username
-
-**À mettre à jour** avec votre vrai username GitHub !
+- Tout le code : @Deascenh
 
 ## Protection des Branches
 
@@ -116,11 +114,11 @@ Settings > Branches > Add rule :
 Pour le README.md :
 
 ```markdown
-[![CI](https://github.com/VOTRE-USERNAME/voice-to-claude/workflows/CI/badge.svg)](https://github.com/VOTRE-USERNAME/voice-to-claude/actions)
-[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![CI](https://github.com/Deascenh/voice-to-claude/workflows/CI/badge.svg)](https://github.com/Deascenh/voice-to-claude/actions)
+[![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![codecov](https://codecov.io/gh/VOTRE-USERNAME/voice-to-claude/branch/main/graph/badge.svg)](https://codecov.io/gh/VOTRE-USERNAME/voice-to-claude)
+[![codecov](https://codecov.io/gh/Deascenh/voice-to-claude/branch/main/graph/badge.svg)](https://codecov.io/gh/Deascenh/voice-to-claude)
 ```
 
 ## Configuration Codecov (optionnel)
@@ -213,7 +211,7 @@ Testez d'abord dans une branche feature.
 
 ### Les badges ne s'affichent pas
 
-1. Remplacez `VOTRE-USERNAME` par votre vrai username
+1. Remplacez `<votre-username>` par votre vrai username GitHub
 2. Attendez que le CI ait run au moins une fois
 3. Vérifiez la visibilité du repo (public)
 

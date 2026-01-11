@@ -255,7 +255,7 @@ MAJOR.MINOR.PATCH
 Les workflows suivants sont automatiques :
 
 1. **CI** (sur push/PR vers main ou develop)
-   - Tests Python 3.8, 3.9, 3.10, 3.11
+   - Tests Python 3.9, 3.10, 3.11, 3.12
    - Ubuntu et macOS
    - Coverage report
    - Code quality checks
@@ -318,4 +318,4 @@ git cherry-pick <commit-hash>
 
 ---
 
-**Questions ?** Ouvrez une [issue](https://github.com/VOTRE-USERNAME/voice-to-claude/issues) ou une [discussion](https://github.com/VOTRE-USERNAME/voice-to-claude/discussions).
+**Questions ?** Ouvrez une [issue](https://github.com/Deascenh/voice-to-claude/issues) ou une [discussion](https://github.com/Deascenh/voice-to-claude/discussions).

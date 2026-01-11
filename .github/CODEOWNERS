@@ -2,23 +2,23 @@
 # These owners will be automatically requested for review when someone opens a pull request
 
 # Default owners for everything in the repo
-* @votre-username
+* @Deascenh
 
 # Python code
-*.py @votre-username
-/src/ @votre-username
-/tests/ @votre-username
+*.py @Deascenh
+/src/ @Deascenh
+/tests/ @Deascenh
 
 # Documentation
-*.md @votre-username
-/docs/ @votre-username
+*.md @Deascenh
+/docs/ @Deascenh
 
 # Configuration and scripts
-*.sh @votre-username
-*.yml @votre-username
-*.yaml @votre-username
-pyproject.toml @votre-username
-requirements*.txt @votre-username
+*.sh @Deascenh
+*.yml @Deascenh
+*.yaml @Deascenh
+pyproject.toml @Deascenh
+requirements*.txt @Deascenh
 
 # GitHub workflows
-/.github/ @votre-username
+/.github/ @Deascenh

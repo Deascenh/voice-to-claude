@@ -24,7 +24,9 @@ Comment utiliseriez-vous cette fonctionnalité au quotidien ?
 
 ```bash
 # Exemple de commande ou d'utilisation
-./voice_to_claude.py --nouvelle-option
+make run-session --with-nouvelle-option
+# ou
+make run-realtime
 ```
 
 ## Contexte additionnel

@@ -14,7 +14,7 @@ ls vosk-model-small-fr-0.22 && echo "✅ Modèle OK" || echo "❌ Téléchargez 
 ### 2. Lancer la session
 
 ```bash
-./start_session.sh
+make run-session
 ```
 
 ### 3. Utiliser la session
@@ -138,7 +138,7 @@ claude
 ### La session se bloque
 
 - Utilisez `Ctrl+C` pour arrêter proprement
-- Relancez avec `./start_session.sh`
+- Relancez avec `make run-session`
 
 ---
 
@@ -146,7 +146,7 @@ claude
 
 ### Changer les mots magiques
 
-Éditez `voice_session.py` :
+Éditez `src/voice_to_claude/voice_session.py` :
 
 ```python
 SEND_WORD = "stop"      # Changez en "envoyer", "ok", etc.
@@ -163,7 +163,7 @@ wget https://alphacephei.com/vosk/models/vosk-model-fr-0.22.zip
 unzip vosk-model-fr-0.22.zip
 ```
 
-Puis dans `voice_session.py` :
+Puis dans `src/voice_to_claude/voice_session.py` :
 ```python
 MODEL_PATH = "vosk-model-fr-0.22"
 ```
@@ -207,15 +207,15 @@ Configuration optimale :
 ## 📚 Plus d'informations
 
 - Documentation complète : [SESSION_MODE.md](SESSION_MODE.md)
-- Guide général : [README.md](README.md)
-- Code source : [voice_session.py](voice_session.py)
+- Guide général : [README.md](../README.md)
+- Code source : [voice_session.py](../src/voice_to_claude/voice_session.py)
 
 ---
 
 **Prêt à commencer ?**
 
 ```bash
-./start_session.sh
+make run-session
 ```
 
 Bonne session ! 🎤

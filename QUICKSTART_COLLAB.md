@@ -41,8 +41,8 @@ Cliquez sur **"Create repository"**
 ### 4. Lier et pousser
 
 ```bash
-# Remplacez VOTRE-USERNAME par votre vrai username GitHub
-git remote add origin https://github.com/VOTRE-USERNAME/voice-to-claude.git
+# Remplacez <votre-username> par votre vrai username GitHub
+git remote add origin https://github.com/<votre-username>/voice-to-claude.git
 
 # Pousser main
 git push -u origin main
@@ -131,12 +131,12 @@ Salut ! 👋
 
 J'ai publié Voice to Claude, un outil pour dicter vocalement à Claude Code :
 
-🔗 https://github.com/VOTRE-USERNAME/voice-to-claude
+🔗 https://github.com/Deascenh/voice-to-claude
 
 🚀 Installation :
-git clone https://github.com/VOTRE-USERNAME/voice-to-claude.git
+git clone https://github.com/Deascenh/voice-to-claude.git
 cd voice-to-claude
-./scripts/setup.sh
+make install-system
 make run-session
 
 Le projet est prêt pour la collaboration !
@@ -189,7 +189,7 @@ Maintenant, avant chaque commit :
 
 ### CI/CD
 
-Allez sur : `https://github.com/VOTRE-USERNAME/voice-to-claude/actions`
+Allez sur : `https://github.com/<votre-username>/voice-to-claude/actions`
 
 Vous devriez voir :
 - ✅ Workflow "CI" (vert)
@@ -205,7 +205,7 @@ Les badges dans le README devraient s'afficher :
 
 ### Release
 
-Allez sur : `https://github.com/VOTRE-USERNAME/voice-to-claude/releases`
+Allez sur : `https://github.com/<votre-username>/voice-to-claude/releases`
 
 Vous devriez voir :
 - ✅ Release v1.0.0
@@ -235,7 +235,7 @@ git remote set-url origin https://...  # Corriger l'URL
 
 ### Les badges ne s'affichent pas
 
-1. Remplacez `VOTRE-USERNAME` dans README.md
+1. Remplacez `<votre-username>` dans README.md par votre username GitHub
 2. Attendez que le CI ait run au moins une fois
 3. Vérifiez que le repo est public
 

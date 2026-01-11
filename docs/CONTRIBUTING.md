@@ -55,14 +55,19 @@ Utilisez des messages clairs :
 ## Structure du projet
 
 ```
-voice_to_claude/
-├── voice_session.py        # Mode session interactive
-├── voice_realtime.py       # Mode temps réel
-├── voice_daemon.py         # Mode daemon
-├── voice_to_claude.py      # Mode copier-coller
-├── setup.sh                # Installation universelle
-├── verify.sh               # Vérification système
-└── docs/                   # Documentation
+voice-to-claude/
+├── src/voice_to_claude/    # Code source
+│   ├── voice_session.py    # Mode session interactive
+│   ├── voice_realtime.py   # Mode temps réel
+│   ├── voice_daemon.py     # Mode daemon
+│   └── voice_to_claude.py  # Mode copier-coller
+├── scripts/                # Scripts d'installation
+│   ├── setup.sh            # Installation universelle
+│   ├── verify.sh           # Vérification système
+│   └── start_session.sh    # Lancement session
+├── tests/                  # Tests automatisés
+├── docs/                   # Documentation
+└── Makefile                # Commandes make
 ```
 
 ## Tests
@@ -118,7 +123,7 @@ make test        # Lancer les tests
 #### Étape 1 : Cloner le repository
 
 ```bash
-git clone https://github.com/votre-username/voice-to-claude.git
+git clone https://github.com/Deascenh/voice-to-claude.git
 cd voice-to-claude
 ```
 

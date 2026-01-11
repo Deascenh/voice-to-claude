@@ -17,11 +17,21 @@ Le mode **Session Interactive** crée une véritable conversation continue avec 
 
 ## Installation
 
-### Prérequis
+### Installation rapide (recommandée)
 
-1. **Python 3** avec les dépendances :
+```bash
+make install-system
+```
+
+Cette commande installe automatiquement toutes les dépendances système et Python.
+
+### Installation manuelle
+
+Si vous préférez installer manuellement :
+
+1. **Python 3.9+** avec les dépendances :
    ```bash
-   pip3 install vosk pyaudio
+   make install  # ou : pip install -r requirements.txt
    ```
 
 2. **Modèle Vosk français** :
@@ -41,14 +51,14 @@ Le mode **Session Interactive** crée une véritable conversation continue avec 
 ### Démarrage rapide
 
 ```bash
-./start_session.sh
+make run-session
 ```
 
 ### Flux de travail typique
 
 1. **Lancez la session** :
    ```bash
-   ./start_session.sh
+   make run-session
    ```
 
 2. **Parlez votre demande** :

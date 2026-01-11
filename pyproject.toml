@@ -16,17 +16,17 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Operating System :: MacOS",
     "Operating System :: POSIX :: Linux",
     "Topic :: Software Development",
     "Topic :: Multimedia :: Sound/Audio :: Speech",
 ]
 keywords = ["voice-recognition", "claude-code", "vosk", "speech-to-text", "offline", "french"]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 dependencies = [
     "vosk>=0.3.44",
     "pyaudio>=0.2.13",
@@ -46,9 +46,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/VOTRE-USERNAME/voice-to-claude"
-Repository = "https://github.com/VOTRE-USERNAME/voice-to-claude"
-Issues = "https://github.com/VOTRE-USERNAME/voice-to-claude/issues"
+Homepage = "https://github.com/Deascenh/voice-to-claude"
+Repository = "https://github.com/Deascenh/voice-to-claude"
+Issues = "https://github.com/Deascenh/voice-to-claude/issues"
 
 [project.scripts]
 voice-session = "voice_to_claude.voice_session:main"
@@ -58,7 +58,7 @@ voice-clipboard = "voice_to_claude.voice_to_claude:main"
 
 [tool.black]
 line-length = 100
-target-version = ['py38', 'py39', 'py310', 'py311']
+target-version = ['py39', 'py310', 'py311', 'py312']
 include = '\.pyi?$'
 extend-exclude = '''
 /(
