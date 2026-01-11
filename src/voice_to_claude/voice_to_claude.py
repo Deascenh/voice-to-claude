@@ -10,6 +10,7 @@ MODEL_PATH = "vosk-model-small-fr-0.22"  # ou vosk-model-fr-0.22
 SAMPLE_RATE = 16000
 STOP_WORD = "envoyer"  # Mot pour terminer la dictée
 
+
 def main():
     # Vérifier l'existence du modèle
     if not os.path.exists(MODEL_PATH):
@@ -24,11 +25,7 @@ def main():
     # Initialiser PyAudio
     mic = pyaudio.PyAudio()
     stream = mic.open(
-        format=pyaudio.paInt16,
-        channels=1,
-        rate=SAMPLE_RATE,
-        input=True,
-        frames_per_buffer=8192
+        format=pyaudio.paInt16, channels=1, rate=SAMPLE_RATE, input=True, frames_per_buffer=8192
     )
     stream.start_stream()
 
@@ -44,13 +41,13 @@ def main():
 
             if recognizer.AcceptWaveform(data):
                 result = json.loads(recognizer.Result())
-                text = result.get('text', '').strip()
+                text = result.get("text", "").strip()
 
                 if text:
                     # Vérifier si le mot de fin est prononcé
                     if STOP_WORD in text.lower():
                         # Retirer le mot "envoyer" de la transcription
-                        text = text.lower().replace(STOP_WORD, '').strip()
+                        text = text.lower().replace(STOP_WORD, "").strip()
                         if text:
                             transcription.append(text)
                         break
@@ -60,9 +57,9 @@ def main():
             else:
                 # Résultat partiel (optionnel, pour feedback temps réel)
                 partial = json.loads(recognizer.PartialResult())
-                partial_text = partial.get('partial', '')
+                partial_text = partial.get("partial", "")
                 if partial_text:
-                    print(f"\r💭 {partial_text}", end='', flush=True)
+                    print(f"\r💭 {partial_text}", end="", flush=True)
 
     except KeyboardInterrupt:
         print("\n\n❌ Dictée annulée")
@@ -74,19 +71,21 @@ def main():
         mic.terminate()
 
     # Assembler et afficher le prompt final
-    final_prompt = ' '.join(transcription).strip()
+    final_prompt = " ".join(transcription).strip()
 
     if final_prompt:
-        print(f"\n\n✅ Prompt transcrit :")
-        print(f"─────────────────────────────────────")
+        print("\n\n✅ Prompt transcrit :")
+        print("─────────────────────────────────────")
         print(final_prompt)
-        print(f"─────────────────────────────────────\n")
+        print("─────────────────────────────────────\n")
 
         # Copier dans le clipboard (optionnel mais pratique)
         try:
             import subprocess
-            subprocess.run(['xclip', '-selection', 'clipboard'],
-                         input=final_prompt.encode(), check=True)
+
+            subprocess.run(
+                ["xclip", "-selection", "clipboard"], input=final_prompt.encode(), check=True
+            )
             print("📋 Copié dans le presse-papiers (Ctrl+Shift+V pour coller)")
         except (ImportError, FileNotFoundError, subprocess.CalledProcessError):
             print("💡 Installez xclip pour copie automatique: sudo apt install xclip")
@@ -95,6 +94,7 @@ def main():
         print("\n🚀 Collez maintenant dans Claude Code et appuyez sur Entrée")
     else:
         print("\n⚠️  Aucun texte transcrit")
+
 
 if __name__ == "__main__":
     main()

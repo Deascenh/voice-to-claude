@@ -24,8 +24,9 @@ import signal
 # Configuration
 MODEL_PATH = "vosk-model-small-fr-0.22"
 SAMPLE_RATE = 16000
-SEND_WORD = "stop"      # Mot pour envoyer le prompt
-QUIT_WORD = "terminé"    # Mot pour quitter
+SEND_WORD = "stop"  # Mot pour envoyer le prompt
+QUIT_WORD = "terminé"  # Mot pour quitter
+
 
 class ClaudeSession:
     def __init__(self):
@@ -47,13 +48,13 @@ class ClaudeSession:
         try:
             # Lancer claude en mode interactif
             self.claude_process = subprocess.Popen(
-                ['claude'],
+                ["claude"],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 bufsize=0,  # Pas de buffering
                 universal_newlines=True,
-                text=True
+                text=True,
             )
             print("✅ Claude Code démarré\n")
             return True
@@ -89,7 +90,7 @@ class ClaudeSession:
                 channels=1,
                 rate=SAMPLE_RATE,
                 input=True,
-                frames_per_buffer=8192
+                frames_per_buffer=8192,
             )
             stream.start_stream()
 
@@ -105,7 +106,7 @@ class ClaudeSession:
 
                     if recognizer.AcceptWaveform(data):
                         result = json.loads(recognizer.Result())
-                        text = result.get('text', '').strip()
+                        text = result.get("text", "").strip()
 
                         if text:
                             # Vérifier les mots magiques
@@ -118,7 +119,7 @@ class ClaudeSession:
 
                             if SEND_WORD in text_lower:
                                 # Retirer le mot "stop" du texte
-                                text_clean = text_lower.replace(SEND_WORD, '').strip()
+                                text_clean = text_lower.replace(SEND_WORD, "").strip()
                                 if text_clean:
                                     with self.voice_lock:
                                         self.voice_buffer.append(text_clean)
@@ -145,10 +146,10 @@ class ClaudeSession:
                     else:
                         # Résultat partiel
                         partial = json.loads(recognizer.PartialResult())
-                        partial_text = partial.get('partial', '')
+                        partial_text = partial.get("partial", "")
 
                         if partial_text != last_partial:
-                            print(f"\r💭 {partial_text}", end='', flush=True)
+                            print(f"\r💭 {partial_text}", end="", flush=True)
                             last_partial = partial_text
 
                 except Exception as e:
@@ -173,7 +174,7 @@ class ClaudeSession:
                 return
 
             # Assembler le texte
-            full_text = ' '.join(self.voice_buffer).strip()
+            full_text = " ".join(self.voice_buffer).strip()
             self.voice_buffer.clear()
 
         if not full_text:
@@ -184,7 +185,7 @@ class ClaudeSession:
 
         try:
             # Envoyer à Claude via stdin
-            self.claude_process.stdin.write(full_text + '\n')
+            self.claude_process.stdin.write(full_text + "\n")
             self.claude_process.stdin.flush()
         except Exception as e:
             print(f"❌ Erreur lors de l'envoi: {e}")
@@ -209,7 +210,7 @@ class ClaudeSession:
                     continue
 
                 # Afficher la sortie de Claude
-                print(line, end='', flush=True)
+                print(line, end="", flush=True)
 
         except Exception as e:
             if self.running:
@@ -279,15 +280,17 @@ class ClaudeSession:
             try:
                 self.claude_process.terminate()
                 self.claude_process.wait(timeout=3)
-            except:
+            except Exception:
                 self.claude_process.kill()
 
         print("✅ Session terminée\n")
+
 
 def signal_handler(sig, frame):
     """Gestion de Ctrl+C"""
     print("\n\n👋 Signal d'interruption reçu")
     sys.exit(0)
+
 
 def main():
     # Gestion de Ctrl+C
@@ -296,6 +299,7 @@ def main():
     # Créer et lancer la session
     session = ClaudeSession()
     session.run()
+
 
 if __name__ == "__main__":
     main()

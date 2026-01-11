@@ -1,4 +1,5 @@
 """Test that all Python scripts have valid syntax."""
+
 import pytest
 import py_compile
 from pathlib import Path

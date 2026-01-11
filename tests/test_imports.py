@@ -1,10 +1,10 @@
 """Test that all modules can be imported successfully."""
-import pytest
 
 
 def test_import_main_package():
     """Test that the main package can be imported."""
     import voice_to_claude
+
     assert voice_to_claude.__version__ == "1.0.0"
 
 
@@ -22,6 +22,7 @@ def test_import_constants():
 def test_scripts_exist():
     """Test that all main scripts exist."""
     from pathlib import Path
+
     src_path = Path(__file__).parent.parent / "src" / "voice_to_claude"
 
     assert (src_path / "voice_session.py").exists()

@@ -1,4 +1,5 @@
 """Pytest configuration and fixtures for voice-to-claude tests."""
+
 import pytest
 import sys
 from pathlib import Path

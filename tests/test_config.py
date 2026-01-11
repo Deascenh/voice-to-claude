@@ -1,5 +1,5 @@
 """Test configuration and constants."""
-import pytest
+
 from voice_to_claude import DEFAULT_MODEL_PATH, SAMPLE_RATE
 from voice_to_claude import DEFAULT_SEND_WORD, DEFAULT_QUIT_WORD
 

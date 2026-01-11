@@ -16,22 +16,21 @@ MODEL_PATH = "vosk-model-small-fr-0.22"
 SAMPLE_RATE = 16000
 STOP_WORD = "stop"  # Mot pour arrêter la dictée
 
+
 def type_text(text):
     """Injecte du texte dans le terminal actif"""
     try:
         # Ajoute un espace avant si ce n'est pas le début
-        subprocess.run(
-            ['xdotool', 'type', '--', text],
-            check=True,
-            stderr=subprocess.DEVNULL
-        )
+        subprocess.run(["xdotool", "type", "--", text], check=True, stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         pass
+
 
 def signal_handler(sig, frame):
     """Gestion propre de Ctrl+C"""
     print("\n\n👋 Dictée interrompue")
     sys.exit(0)
+
 
 def main():
     # Gestion de Ctrl+C
@@ -49,11 +48,7 @@ def main():
     # Initialiser PyAudio
     mic = pyaudio.PyAudio()
     stream = mic.open(
-        format=pyaudio.paInt16,
-        channels=1,
-        rate=SAMPLE_RATE,
-        input=True,
-        frames_per_buffer=8192
+        format=pyaudio.paInt16, channels=1, rate=SAMPLE_RATE, input=True, frames_per_buffer=8192
     )
     stream.start_stream()
 
@@ -72,24 +67,24 @@ def main():
 
             if recognizer.AcceptWaveform(data):
                 result = json.loads(recognizer.Result())
-                text = result.get('text', '').strip()
+                text = result.get("text", "").strip()
 
                 if text:
                     # Vérifier le mot d'arrêt
                     if STOP_WORD in text.lower():
                         # Retirer le mot stop et traiter le reste
-                        text_clean = text.lower().replace(STOP_WORD, '').strip()
+                        text_clean = text.lower().replace(STOP_WORD, "").strip()
                         if text_clean:
                             if not first_word:
-                                type_text(' ')
+                                type_text(" ")
                             type_text(text_clean)
                             print(f"📝 {text_clean}")
-                        print(f"\n⏸️  Mot d'arrêt détecté - Dictée terminée")
+                        print("\n⏸️  Mot d'arrêt détecté - Dictée terminée")
                         break
 
                     # Injecter le texte mot par mot
                     if not first_word:
-                        type_text(' ')
+                        type_text(" ")
                     type_text(text)
                     first_word = False
 
@@ -103,10 +98,10 @@ def main():
             else:
                 # Résultat partiel pour feedback visuel
                 partial = json.loads(recognizer.PartialResult())
-                partial_text = partial.get('partial', '')
+                partial_text = partial.get("partial", "")
 
                 if partial_text != last_partial:
-                    print(f"\r💭 {partial_text}", end='', flush=True)
+                    print(f"\r💭 {partial_text}", end="", flush=True)
                     last_partial = partial_text
 
     finally:
@@ -119,6 +114,7 @@ def main():
 
         print("\n✅ Dictée terminée")
         print("💡 Vous pouvez maintenant interagir avec Claude Code\n")
+
 
 if __name__ == "__main__":
     main()
