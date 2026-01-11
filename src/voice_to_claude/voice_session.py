@@ -36,7 +36,7 @@ class ClaudeSession:
         self.voice_lock = threading.Lock()
 
         # Queues pour la communication
-        self.voice_queue = queue.Queue()
+        self.voice_queue: queue.Queue[str] = queue.Queue()
 
         # Threads
         self.voice_thread = None
@@ -185,8 +185,11 @@ class ClaudeSession:
 
         try:
             # Envoyer à Claude via stdin
-            self.claude_process.stdin.write(full_text + "\n")
-            self.claude_process.stdin.flush()
+            if self.claude_process and self.claude_process.stdin:
+                self.claude_process.stdin.write(full_text + "\n")
+                self.claude_process.stdin.flush()
+            else:
+                print("❌ Erreur: processus Claude non démarré")
         except Exception as e:
             print(f"❌ Erreur lors de l'envoi: {e}")
 
@@ -229,8 +232,9 @@ class ClaudeSession:
                     if line:
                         # Envoyer au processus Claude
                         try:
-                            self.claude_process.stdin.write(line)
-                            self.claude_process.stdin.flush()
+                            if self.claude_process and self.claude_process.stdin:
+                                self.claude_process.stdin.write(line)
+                                self.claude_process.stdin.flush()
                         except Exception as e:
                             print(f"⚠️  Erreur envoi clavier: {e}")
 
