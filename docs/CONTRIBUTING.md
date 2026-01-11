@@ -41,7 +41,8 @@ Avant de coder une nouvelle fonctionnalité :
 - **Python** : Suivre PEP 8
 - **Commentaires** : En français ou anglais, au choix
 - **Documentation** : Mettre à jour le README si nécessaire
-- **Tests** : Vérifier que `./verify.sh` passe
+- **Tests** : Vérifier que `make test` et `make lint` passent
+- **Formatage** : Utiliser `make format` avant de commiter
 
 ### Messages de commit
 
@@ -66,17 +67,19 @@ voice_to_claude/
 
 ## Tests
 
-Avant de soumettre :
+Avant de soumettre une Pull Request :
 
 ```bash
-# Vérifier la syntaxe Python
-python3 -m py_compile *.py
+# Lancer tous les tests unitaires
+make test
 
-# Tester l'installation
-./verify.sh
+# Vérifier le formatage et la qualité du code
+make quality
 
-# Tester manuellement chaque mode
-./voice_realtime.py
+# Ou lancer chaque vérification séparément
+make format      # Formater le code
+make lint        # Vérifier la qualité
+make test        # Lancer les tests
 ```
 
 ## Idées de contribution
@@ -110,18 +113,64 @@ python3 -m py_compile *.py
 
 ## Développement local
 
-### Configuration de l'environnement
+### Configuration de l'environnement (pour débutants en Python)
+
+#### Étape 1 : Cloner le repository
 
 ```bash
-# Cloner le repo
 git clone https://github.com/votre-username/voice-to-claude.git
 cd voice-to-claude
+```
 
-# Installer les dépendances
-./setup.sh
+#### Étape 2 : Créer un environnement virtuel Python
 
+**C'est quoi un environnement virtuel ?**
+Un environnement virtuel (venv) isole les dépendances Python de ce projet sans affecter votre système. C'est une bonne pratique en Python.
+
+```bash
+# Créer l'environnement virtuel (à faire une seule fois)
+make setup-venv
+
+# OU manuellement :
+python3 -m venv venv
+```
+
+**Note importante :** Le Makefile détecte automatiquement le venv ! Vous n'avez **pas besoin** de l'activer manuellement pour utiliser les commandes `make`.
+
+#### Étape 3 : Installer les dépendances
+
+```bash
+# Installer les dépendances de développement (tests, linting, etc.)
+make install-dev
+
+# Installer les dépendances système (audio, etc.)
+make install-system
+```
+
+#### Étape 4 : Vérifier l'installation
+
+```bash
 # Vérifier que tout fonctionne
-./verify.sh
+make verify
+```
+
+### Utilisation quotidienne
+
+**Avec make (recommandé) :**
+```bash
+# Le Makefile utilise automatiquement le venv, pas besoin de l'activer !
+make test          # Lancer les tests
+make lint          # Vérifier la qualité du code
+make format        # Formater le code
+make quality       # Tout vérifier (format + lint + test)
+```
+
+**Sans make (activation manuelle) :**
+Si vous préférez travailler sans make, activez d'abord le venv :
+```bash
+source venv/bin/activate         # Activer le venv
+pytest tests/                    # Utiliser les outils Python
+deactivate                       # Sortir du venv quand vous avez fini
 ```
 
 ### Debug
@@ -136,11 +185,17 @@ logging.basicConfig(level=logging.DEBUG)
 ### Tester les modifications
 
 ```bash
-# Mode développement - lancer directement
-python3 voice_session.py
+# Lancer tous les tests
+make test
 
-# Vérifier la syntaxe
-python3 -m py_compile voice_session.py
+# Lancer un test spécifique
+make test-one TEST=imports
+
+# Vérifier la syntaxe et le formatage
+make lint
+
+# Formater automatiquement le code
+make format
 ```
 
 ## Questions ?

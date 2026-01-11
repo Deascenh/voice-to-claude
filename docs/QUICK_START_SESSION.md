@@ -20,10 +20,10 @@ ls vosk-model-small-fr-0.22 && echo "✅ Modèle OK" || echo "❌ Téléchargez 
 ### 3. Utiliser la session
 
 1. **Parlez** - vos mots s'accumulent dans le buffer
-2. **Dites "sloubi"** - envoie le buffer à Claude
+2. **Dites "stop"** - envoie le buffer à Claude
 3. **Claude répond** - utilisez le clavier si nécessaire
 4. **Continuez à parler** - pour la prochaine requête
-5. **Dites "wakeuteu"** - pour terminer
+5. **Dites "terminé"** - pour terminer
 
 ---
 
@@ -39,7 +39,7 @@ ls vosk-model-small-fr-0.22 && echo "✅ Modèle OK" || echo "❌ Téléchargez 
 💭 "qui liste tous les fichiers"
 📝 qui liste tous les fichiers
 
-💭 "dans un dossier sloubi"
+💭 "dans un dossier stop"
 📝 dans un dossier
 
 📤 Envoi à Claude: créer un script python qui liste tous les fichiers dans un dossier
@@ -50,7 +50,7 @@ ls vosk-model-small-fr-0.22 && echo "✅ Modèle OK" || echo "❌ Téléchargez 
 💭 "maintenant ajoute"
 📝 maintenant ajoute
 
-💭 "un filtre par extension sloubi"
+💭 "un filtre par extension stop"
 📝 un filtre par extension
 
 📤 Envoi à Claude: maintenant ajoute un filtre par extension
@@ -59,8 +59,8 @@ ls vosk-model-small-fr-0.22 && echo "✅ Modèle OK" || echo "❌ Téléchargez 
 [Claude modifie le script...]
 
 [Vous êtes satisfait]
-💭 "wakeuteu"
-🛑 Mot magique 'wakeuteu' détecté - Fin de session
+💭 "terminé"
+🛑 Mot magique 'terminé' détecté - Fin de session
 ```
 
 ---
@@ -69,8 +69,8 @@ ls vosk-model-small-fr-0.22 && echo "✅ Modèle OK" || echo "❌ Téléchargez 
 
 ### Prononciation des mots magiques
 
-- **sloubi** : Prononcez "slou-bi" (comme "su-lou-bi" mais rapide)
-- **wakeuteu** : Prononcez "wake-u-teu" (articulez bien chaque syllabe)
+- **stop** : Prononcez "slou-bi" (comme "su-lou-bi" mais rapide)
+- **terminé** : Prononcez "wake-u-teu" (articulez bien chaque syllabe)
 
 ### Quand utiliser le clavier
 
@@ -89,7 +89,7 @@ Claude peut vous poser des questions avec des choix :
 
 Si Vosk transcrit mal un mot :
 - Continuez à parler, reformulez si nécessaire
-- Ou dites "sloubi" pour envoyer ce que vous avez
+- Ou dites "stop" pour envoyer ce que vous avez
 - Puis corriger au prochain message vocal
 
 ### Organiser vos requêtes
@@ -98,13 +98,13 @@ Si Vosk transcrit mal un mot :
 
 ```
 ✅ BIEN :
-"créer une fonction de calcul sloubi"
+"créer une fonction de calcul stop"
 [Claude répond]
-"ajouter des tests unitaires sloubi"
+"ajouter des tests unitaires stop"
 [Claude répond]
 
 ❌ MOINS BIEN :
-"créer une fonction de calcul et ajouter des tests unitaires sloubi"
+"créer une fonction de calcul et ajouter des tests unitaires stop"
 [Message trop long, moins clair]
 ```
 
@@ -149,8 +149,8 @@ claude
 Éditez `voice_session.py` :
 
 ```python
-SEND_WORD = "sloubi"      # Changez en "envoyer", "ok", etc.
-QUIT_WORD = "wakeuteu"    # Changez en "stop", "quitter", etc.
+SEND_WORD = "stop"      # Changez en "envoyer", "ok", etc.
+QUIT_WORD = "terminé"    # Changez en "stop", "quitter", etc.
 ```
 
 ### Utiliser le modèle complet
@@ -184,7 +184,7 @@ Pour des sessions de travail de plusieurs heures :
 Pour du code ou des commandes techniques :
 - Dictez lentement et clairement
 - Utilisez des phrases courtes
-- Envoyez régulièrement avec "sloubi"
+- Envoyez régulièrement avec "stop"
 - Profitez de la session continue pour affiner progressivement
 
 ### Workflow multi-terminal

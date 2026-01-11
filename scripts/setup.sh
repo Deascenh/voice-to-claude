@@ -179,13 +179,18 @@ echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 info "Configuration des permissions..."
 
-chmod +x voice_to_claude.py
-chmod +x voice_realtime.py
-chmod +x voice_daemon.py
-chmod +x voice_session.py
-chmod +x start_session.sh
-chmod +x start.sh
-chmod +x test.sh 2>/dev/null || true
+# Scripts Python dans src/voice_to_claude/
+chmod +x src/voice_to_claude/voice_to_claude.py 2>/dev/null || true
+chmod +x src/voice_to_claude/voice_realtime.py 2>/dev/null || true
+chmod +x src/voice_to_claude/voice_daemon.py 2>/dev/null || true
+chmod +x src/voice_to_claude/voice_session.py 2>/dev/null || true
+
+# Scripts shell dans scripts/
+chmod +x scripts/start_session.sh 2>/dev/null || true
+chmod +x scripts/verify.sh 2>/dev/null || true
+
+# Script à la racine
+chmod +x init_repo.sh 2>/dev/null || true
 
 success "Permissions configurées"
 echo ""
@@ -236,10 +241,10 @@ echo ""
 success "Voice to Claude est prêt à l'emploi !"
 echo ""
 info "Modes disponibles:"
-echo "  • Session Interactive (recommandé) : ./start_session.sh"
-echo "  • Temps Réel                       : ./voice_realtime.py"
-echo "  • Daemon Push-to-Talk              : ./voice_daemon.py"
-echo "  • Copier-Coller                    : ./voice_to_claude.py"
+echo "  • Session Interactive (recommandé) : make run-session"
+echo "  • Temps Réel                       : make run-realtime"
+echo "  • Daemon Push-to-Talk              : make run-daemon"
+echo "  • Copier-Coller                    : python3 src/voice_to_claude/voice_to_claude.py"
 echo ""
 info "Documentation:"
 echo "  • Guide rapide    : QUICK_START_SESSION.md"
@@ -247,5 +252,5 @@ echo "  • Documentation   : README.md"
 echo "  • Mode Session    : SESSION_MODE.md"
 echo ""
 info "Pour tester:"
-echo "  ./start_session.sh"
+echo "  make run-session"
 echo ""

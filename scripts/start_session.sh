@@ -33,12 +33,12 @@ echo "✅ Tous les prérequis sont satisfaits"
 echo ""
 echo "📖 Guide rapide:"
 echo "   • Parlez pour accumuler du texte dans le buffer"
-echo "   • Dites 'sloubi' pour envoyer votre message à Claude"
-echo "   • Dites 'wakeuteu' pour terminer la session"
+echo "   • Dites 'stop' pour envoyer votre message à Claude"
+echo "   • Dites 'terminé' pour terminer la session"
 echo "   • Utilisez le clavier pour répondre aux questions de Claude"
 echo ""
 echo "Appuyez sur Entrée pour démarrer la session..."
 read
 
 # Lancer le script
-python3 voice_session.py
+python3 src/voice_to_claude/voice_session.py

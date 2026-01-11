@@ -9,7 +9,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 ### Ajouté
 - **Mode Session Interactive** : Conversation continue avec Claude Code
   - Reconnaissance vocale permanente en arrière-plan
-  - Mots magiques : "sloubi" (envoyer) et "wakeuteu" (quitter)
+  - Mots magiques : "stop" (envoyer) et "terminé" (quitter)
   - Clavier actif pour répondre aux questions de Claude
   - Architecture multi-thread pour une fluidité maximale
 - **Mode Temps Réel** : Injection directe du texte dans le terminal

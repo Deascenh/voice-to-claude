@@ -1,0 +1,14 @@
+# Core dependencies
+vosk>=0.3.45
+pyaudio>=0.2.13
+
+# Optional dependencies
+pynput>=1.7.6  # Pour le mode daemon
+
+# Development dependencies (install with: pip install -r requirements-dev.txt)
+# pytest>=7.4.0
+# pytest-cov>=4.1.0
+# black>=23.0.0
+# flake8>=6.0.0
+# mypy>=1.5.0
+# pre-commit>=3.3.0

@@ -1,0 +1,24 @@
+# Code owners for voice-to-claude
+# These owners will be automatically requested for review when someone opens a pull request
+
+# Default owners for everything in the repo
+* @votre-username
+
+# Python code
+*.py @votre-username
+/src/ @votre-username
+/tests/ @votre-username
+
+# Documentation
+*.md @votre-username
+/docs/ @votre-username
+
+# Configuration and scripts
+*.sh @votre-username
+*.yml @votre-username
+*.yaml @votre-username
+pyproject.toml @votre-username
+requirements*.txt @votre-username
+
+# GitHub workflows
+/.github/ @votre-username

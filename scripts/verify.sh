@@ -95,11 +95,11 @@ echo ""
 
 # 8. Scripts exécutables
 echo "━━━ Scripts ━━━"
-[ -x "voice_session.py" ] && success "voice_session.py exécutable" || warning "voice_session.py non exécutable"
-[ -x "voice_realtime.py" ] && success "voice_realtime.py exécutable" || warning "voice_realtime.py non exécutable"
-[ -x "voice_daemon.py" ] && success "voice_daemon.py exécutable" || warning "voice_daemon.py non exécutable"
-[ -x "voice_to_claude.py" ] && success "voice_to_claude.py exécutable" || warning "voice_to_claude.py non exécutable"
-[ -x "start_session.sh" ] && success "start_session.sh exécutable" || warning "start_session.sh non exécutable"
+[ -x "src/voice_to_claude/voice_session.py" ] && success "voice_session.py exécutable" || warning "voice_session.py non exécutable"
+[ -x "src/voice_to_claude/voice_realtime.py" ] && success "voice_realtime.py exécutable" || warning "voice_realtime.py non exécutable"
+[ -x "src/voice_to_claude/voice_daemon.py" ] && success "voice_daemon.py exécutable" || warning "voice_daemon.py non exécutable"
+[ -x "src/voice_to_claude/voice_to_claude.py" ] && success "voice_to_claude.py exécutable" || warning "voice_to_claude.py non exécutable"
+[ -x "scripts/start_session.sh" ] && success "start_session.sh exécutable" || warning "start_session.sh non exécutable"
 echo ""
 
 # Résumé

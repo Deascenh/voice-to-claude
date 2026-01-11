@@ -10,8 +10,8 @@ Le mode **Session Interactive** crée une véritable conversation continue avec 
 - **Reconnaissance vocale permanente** : Le microphone écoute en continu en arrière-plan
 - **Buffer vocal** : Vos paroles s'accumulent jusqu'à ce que vous décidiez de les envoyer
 - **Mots magiques** :
-  - `sloubi` : Envoie votre message accumulé à Claude
-  - `wakeuteu` : Termine la session
+  - `stop` : Envoie votre message accumulé à Claude
+  - `terminé` : Termine la session
 - **Clavier actif** : Vous pouvez taper pour répondre aux questions de Claude (Yes/No, choix, etc.)
 - **Multi-thread** : Tout fonctionne en parallèle sans blocage
 
@@ -57,7 +57,7 @@ Le mode **Session Interactive** crée une véritable conversation continue avec 
    - Continuez à parler autant que nécessaire
 
 3. **Envoyez à Claude** :
-   - Dites **"sloubi"** pour envoyer le buffer à Claude
+   - Dites **"stop"** pour envoyer le buffer à Claude
    - Le texte est transmis et le buffer est vidé
 
 4. **Claude répond** :
@@ -67,11 +67,11 @@ Le mode **Session Interactive** crée une véritable conversation continue avec 
 
 5. **Continuez la conversation** :
    - Parlez une nouvelle demande
-   - Dites à nouveau **"sloubi"** pour l'envoyer
+   - Dites à nouveau **"stop"** pour l'envoyer
    - Répétez autant que nécessaire
 
 6. **Terminez la session** :
-   - Dites **"wakeuteu"** pour quitter proprement
+   - Dites **"terminé"** pour quitter proprement
    - Ou utilisez `Ctrl+C`
 
 ## Exemple de session
@@ -81,14 +81,14 @@ Le mode **Session Interactive** crée une véritable conversation continue avec 
 ✅ Claude Code démarré
 
 🎤 Reconnaissance vocale activée
-   Dites 'sloubi' pour envoyer votre message à Claude
-   Dites 'wakeuteu' pour terminer la session
+   Dites 'stop' pour envoyer votre message à Claude
+   Dites 'terminé' pour terminer la session
 
 ⌨️  Clavier actif pour répondre aux questions de Claude
 
 💭 lis le fichier
 📝 lis le fichier main point py
-💭 et dis moi ce qu'il fait sloubi
+💭 et dis moi ce qu'il fait stop
 📝 et dis moi ce qu'il fait
 
 📤 Envoi à Claude: lis le fichier main.py et dis moi ce qu'il fait
@@ -99,15 +99,15 @@ Le mode **Session Interactive** crée une véritable conversation continue avec 
 💭 maintenant crée
 📝 maintenant crée une fonction
 📝 pour valider les emails
-💭 sloubi
+💭 stop
 
 📤 Envoi à Claude: maintenant crée une fonction pour valider les emails
 ────────────────────────────────────────────────────────────
 
 [Claude crée la fonction...]
 
-💭 wakeuteu
-🛑 Mot magique 'wakeuteu' détecté - Fin de session
+💭 terminé
+🛑 Mot magique 'terminé' détecté - Fin de session
 
 🧹 Nettoyage en cours...
 ✅ Session terminée
@@ -132,7 +132,7 @@ Le script utilise une architecture multi-thread :
 └────────┬────────┘
          │
          v
-┌─────────────────┐      sloubi      ┌──────────────┐
+┌─────────────────┐      stop      ┌──────────────┐
 │  Buffer Vocal   │ ─────────────────>│   Claude     │
 │                 │                   │   Process    │
 └─────────────────┘                   │              │
@@ -174,8 +174,8 @@ Le script utilise une architecture multi-thread :
 
 ### Les mots magiques ne sont pas détectés
 
-- Prononcez clairement : **"sloubi"** (pas "slou-bi" ou "slouby")
-- Pour **"wakeuteu"**, articulez bien chaque syllabe
+- Prononcez clairement : **"stop"** (pas "slou-bi" ou "slouby")
+- Pour **"terminé"**, articulez bien chaque syllabe
 - La détection est insensible à la casse
 
 ### Le clavier ne répond pas

@@ -67,3 +67,7 @@ secrets/
 # Test output
 test_output/
 .pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+.mypy_cache/

@@ -4,8 +4,8 @@ Voice to Claude - Session Interactive Continue
 Lance Claude Code et permet une conversation continue avec reconnaissance vocale.
 
 Commandes vocales:
-- "sloubi" : Envoie le buffer vocal à Claude
-- "wakeuteu" : Termine la session
+- "stop" : Envoie le buffer vocal à Claude
+- "terminé" : Termine la session
 
 Le clavier reste actif pour répondre aux questions de Claude.
 """
@@ -24,8 +24,8 @@ import signal
 # Configuration
 MODEL_PATH = "vosk-model-small-fr-0.22"
 SAMPLE_RATE = 16000
-SEND_WORD = "sloubi"      # Mot pour envoyer le prompt
-QUIT_WORD = "wakeuteu"    # Mot pour quitter
+SEND_WORD = "stop"      # Mot pour envoyer le prompt
+QUIT_WORD = "terminé"    # Mot pour quitter
 
 class ClaudeSession:
     def __init__(self):
@@ -117,7 +117,7 @@ class ClaudeSession:
                                 break
 
                             if SEND_WORD in text_lower:
-                                # Retirer le mot "sloubi" du texte
+                                # Retirer le mot "stop" du texte
                                 text_clean = text_lower.replace(SEND_WORD, '').strip()
                                 if text_clean:
                                     with self.voice_lock:
