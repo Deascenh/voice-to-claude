@@ -28,7 +28,7 @@ classifiers = [
 keywords = ["voice-recognition", "claude-code", "vosk", "speech-to-text", "offline", "french"]
 requires-python = ">=3.8"
 dependencies = [
-    "vosk>=0.3.45",
+    "vosk>=0.3.44",
     "pyaudio>=0.2.13",
     "pynput>=1.7.6",
 ]
@@ -88,7 +88,7 @@ addopts = [
 ]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
